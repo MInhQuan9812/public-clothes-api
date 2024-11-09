@@ -1,0 +1,36 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.vcxproj.user
+*.filters
+
+# Build results
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE specific files
+.idea/
+*.iml
+*.sln.docstates
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.db
+
+node_modules/
+
+venv/
+__pycache__/
+
+# Secrets
+*.env

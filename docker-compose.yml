@@ -1,0 +1,13 @@
+﻿version: '3.4'
+
+services:
+  clothes.api:
+    image: ${DOCKER_REGISTRY-}clothesapi
+    build:
+      context: .
+      dockerfile: clothes.api/Dockerfile
+    ports:
+      - "8080:80"  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Host=14.225.212.123;Port=2345;Database=clothes;Username=postgres;Password=12345
