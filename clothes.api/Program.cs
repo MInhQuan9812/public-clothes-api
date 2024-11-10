@@ -1,9 +1,10 @@
-
-
-using clothes.api.Common.Extensions;
+﻿using clothes.api.Common.Extensions;
 using clothes.api.Instrafructure.Context;
 using clothes.api.Instrafructure.Extensions.AutoMapper;
 using clothes.api.Repositories;
+using Microsoft.AspNetCore.Hosting;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
 
 namespace clothes.api
 {
@@ -17,6 +18,16 @@ namespace clothes.api
                .AddDbContext<ClothesContext>(builder.Configuration)
                .AddAutoMapperConfig<AutoMapperProfile>();
 
+            builder.WebHost.ConfigureKestrel(serverOptions =>
+            {
+                serverOptions.ConfigureHttpsDefaults(httpsOptions =>
+                {
+                    httpsOptions.ServerCertificate = new X509Certificate2(
+                        "/https/certificate.pfx",
+                        "Minhquanasd123", X509KeyStorageFlags.MachineKeySet
+);
+                });
+            });
             builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             var app = builder.Build();
 
@@ -25,6 +36,7 @@ namespace clothes.api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
             app.UseCors(x => x
                 .AllowAnyHeader()
                 .AllowAnyMethod()
